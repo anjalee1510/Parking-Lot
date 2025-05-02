@@ -1,6 +1,7 @@
 package com.example.parkinglot.controllers;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.parkinglot.dtos.UserTicket;
@@ -17,7 +18,8 @@ public class InvoiceController {
 		this.invoiceService=invoiceService;
 	}
 	@PostMapping("/invoice")
-	public Invoice generateInvoice(UserTicket userTicket) {
-		return invoiceService.generateInvoice(userTicket.getTicketId(),1L);
+	public Invoice generateInvoice(@RequestBody UserTicket userTicket) {
+		
+		return invoiceService.generateInvoice(userTicket.getTicketId(),userTicket.getGateId());
 	}
 }

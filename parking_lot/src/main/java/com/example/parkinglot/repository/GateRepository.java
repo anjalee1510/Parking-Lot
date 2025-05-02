@@ -29,14 +29,14 @@ public class GateRepository {
 				.floor(1)
 				.slotType(SlotType.NORMAL)
 				.vehicleType(VehicleType.SUV)
-				.id(1)
+				.id(1L)
 				.slotState(SlotState.FREE)
 				.build();
 		ParkingSlot parkingSlot2=ParkingSlot.builder()
 				.floor(2)
 				.slotType(SlotType.VIP)
 				.vehicleType(VehicleType.SEDAN)
-				.id(10)
+				.id(10L)
 				.slotState(SlotState.FREE)
 				.build();
 		ParkingLot parkingLot= ParkingLot.builder()
@@ -45,7 +45,7 @@ public class GateRepository {
 				.parkingSlots(List.of(parkingSlot1,parkingSlot2))
 				.build();
 		Gate gate1=Gate.builder()
-				.id(1)
+				.id(1L)
 				.operatorId(1)
 				.gateType(GateType.ENTRY)
 				.parkingLot(parkingLot)

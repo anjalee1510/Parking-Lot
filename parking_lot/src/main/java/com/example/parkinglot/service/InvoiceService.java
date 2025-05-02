@@ -1,5 +1,7 @@
 package com.example.parkinglot.service;
 
+import java.time.LocalDate;
+
 import org.springframework.stereotype.Service;
 
 import com.example.parkinglot.models.Gate;
@@ -21,11 +23,11 @@ public class InvoiceService {
 	
 	private final FareCalculationStrategy fareCalculationStrategy;
 	
-	public InvoiceService(InvoiceRepository invoiceRepository,TicketRepository ticketRepository,GateRepository gateRepository) {
+	public InvoiceService(InvoiceRepository invoiceRepository,TicketRepository ticketRepository,GateRepository gateRepository,FareCalculationStrategy fareCalculationStrategy) {
 		this.invoiceRepository=invoiceRepository;
 		this.gateRepository=gateRepository;
 		this.ticketRepository=ticketRepository;
-		this.fareCalculationStrategy = null;
+		this.fareCalculationStrategy = fareCalculationStrategy;
 	}
 	
 	public Invoice generateInvoice(Long ticketId, Long gateId) {
@@ -36,16 +38,33 @@ public class InvoiceService {
 		// 5. Return the invoice object.
 		
 		Ticket ticket=ticketRepository.findById(ticketId);
+		if(ticket == null) {
+			throw new IllegalArgumentException("Ticket not found for ID: "+ticketId);
+			
+		}
 		Gate gate=gateRepository.findById(gateId);
+		if(gate == null) {
+			throw new IllegalArgumentException("Gate not found for ID: "+ gateId);
+		}
 		
-		int amount=0;
+		int amount=fareCalculationStrategy.getFare(ticket.getIssueTime(),LocalDate.now());
+//		int amount=fareCalculationStrategy.getFare();
+		
 		ParkingSlot parkingSlot=ticket.getParkingSlot();
 		parkingSlot.setVehicle(null);
 		parkingSlot.setSlotState(SlotState.FREE);
 		// Invoice for the request
+//		Invoice invoice=new Invoice();
+//		invoice.setId(0L);
+//		invoice.setAmount(amount);
+//		invoice.setTicket(ticket);
+//		invoice.setOperatorId(gate.getOperatorId());
+//		invoice.setExitTime(LocalDate.now());
+//		
+		Invoice invoice=invoiceRepository.save(amount,ticket,gate);
 		
 		
 		
-		return null;
+		return invoice;
 	}
 }

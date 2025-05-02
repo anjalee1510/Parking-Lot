@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Gate {
 	
-	int id;
+	Long id;
 	GateType gateType;
 	int operatorId;
 	ParkingLot parkingLot;

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Builder
 public class ParkingSlot {
 	
-	int id;
+	Long id;
 	int floor;
 	VehicleType vehicleType;
 	SlotState slotState;

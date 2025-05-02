@@ -13,7 +13,8 @@ import lombok.Setter;
 @Builder
 public class UserTicket {
 	Long ticketId;
-	int slotId;
+	Long slotId;
+	Long gateId;
 	int floorNumber;
 	LocalDate time; 
 

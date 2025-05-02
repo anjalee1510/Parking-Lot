@@ -38,6 +38,7 @@ public class TicketController {
 				.ticketId(ticket.getId())
 				.floorNumber(ticket.getParkingSlot().getFloor())
 				.slotId(ticket.getParkingSlot().getId())
+				.gateId(ticket.getGate().getId())
 				.time(ticket.getIssueTime())
 				.build();
 	}
